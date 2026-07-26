@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const title = "Gnozis | AI-Driven SRAM DTCO Workbench";
 const description =
   "Building the Intelligence Layer for SRAM DTCO. Accelerating SRAM innovation with AI. Connect simulation, silicon and intelligence into one engineering workflow.";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gnozis.ai/";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.gnozis.cn/";
 const metadataBase = new URL(siteUrl.endsWith("/") ? siteUrl : `${siteUrl}/`);
 const faviconUrl = new URL("favicon.svg", metadataBase).toString();
 const socialImageUrl = new URL("og.png", metadataBase).toString();
@@ -62,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.variable}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
