@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,54 +11,49 @@ const inter = Inter({
 const title = "Gnozis | AI-Driven SRAM DTCO Workbench";
 const description =
   "Building the Intelligence Layer for SRAM DTCO. Accelerating SRAM innovation with AI. Connect simulation, silicon and intelligence into one engineering workflow.";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gnozis.ai/";
+const metadataBase = new URL(siteUrl.endsWith("/") ? siteUrl : `${siteUrl}/`);
+const faviconUrl = new URL("favicon.svg", metadataBase).toString();
+const socialImageUrl = new URL("og.png", metadataBase).toString();
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host =
-    requestHeaders.get("x-forwarded-host") || requestHeaders.get("host");
-  const protocol =
-    requestHeaders.get("x-forwarded-proto") ||
-    (host?.includes("localhost") ? "http" : "https");
-  const metadataBase = new URL(host ? `${protocol}://${host}` : "https://gnozis.ai");
-
-  return {
-    metadataBase,
+export const metadata: Metadata = {
+  metadataBase,
+  title,
+  description,
+  applicationName: "Gnozis",
+  keywords: [
+    "SRAM DTCO",
+    "SRAM Workbench",
+    "AI for semiconductor engineering",
+    "surrogate modeling",
+    "Vmin projection",
+  ],
+  icons: {
+    icon: faviconUrl,
+    shortcut: faviconUrl,
+  },
+  openGraph: {
+    type: "website",
+    url: metadataBase,
     title,
     description,
-    applicationName: "Gnozis",
-    keywords: [
-      "SRAM DTCO",
-      "SRAM Workbench",
-      "AI for semiconductor engineering",
-      "surrogate modeling",
-      "Vmin projection",
+    siteName: "Gnozis",
+    images: [
+      {
+        url: socialImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "Gnozis AI-Driven SRAM DTCO Workbench",
+      },
     ],
-    icons: {
-      icon: "/favicon.svg",
-      shortcut: "/favicon.svg",
-    },
-    openGraph: {
-      type: "website",
-      title,
-      description,
-      siteName: "Gnozis",
-      images: [
-        {
-          url: "/og.png",
-          width: 1200,
-          height: 630,
-          alt: "Gnozis AI-Driven SRAM DTCO Workbench",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/og.png"],
-    },
-  };
-}
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [socialImageUrl],
+  },
+};
 
 export default function RootLayout({
   children,
